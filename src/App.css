@@ -1,4 +1,40 @@
 .App {
   text-align: center;
 }
+.search{
+  margin: 30px;
+}
+input{
+  width: 100%;
+}
+img{
+  float: left;
+  width: 200px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+.userName{
+  margin-left: 30px;
+}
+.repos-info{
+  margin-left: 228px;
+}
+.repos-info:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+.actions{
+  margin: 30px;
+}
+button{
+  width: 230px;
+  margin: 10px;
+}
+.repos{
+  margin: 30px;
 
+}
+.starred{
+  margin: 30px;
+}
