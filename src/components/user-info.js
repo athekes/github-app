@@ -4,7 +4,7 @@ import React from 'react'
 const UserInfo = ({ userinfo }) => (
   <div className='user-info'>
     <img src= { userinfo.photo } alt="foto"/>
-    <h1 class="userName">
+    <h1 className="userName">
       <a href={`https://github.com/${userinfo.login}`}>{userinfo.username}</a>
     </h1>
     
@@ -19,7 +19,7 @@ const UserInfo = ({ userinfo }) => (
 UserInfo.propTypes = {
   userinfo: PropTypes.shape({
     username: PropTypes.string.isRequired,
-    pthoto: PropTypes.string.isRequired,
+    photo: PropTypes.string.isRequired,
     login: PropTypes.string.isRequired,
     repos: PropTypes.number.isRequired,
     followers: PropTypes.number.isRequired,
