@@ -10,7 +10,7 @@ const AppContent = ({ userinfo, repos, starred }) => (
 
     <Search/>
 
-    {!!userinfo && <UserInfo userinfo={ userinfo }/> }
+    {!!userinfo && <UserInfo userinfo={userinfo}/> }
 
     {!!userinfo && <Actions/> }
 
