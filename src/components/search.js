@@ -1,30 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
-const axios = require('axios');
-
-const Search = () => (
+const Search = ({ handleSearch }) => (
 
   <div className='search'>
     <input 
       type='search' 
       placeholder='Digite o nome do usuário no GitHub'
-      onKeyUp={(e) => {
-        const value = e.target.value
-        const keyCode = e.which || e.keyCode
-        const ENTER = 13
-        
-        if (keyCode == ENTER) {
-          axios.get(`https://api.github.com/users/${value}`)
-          .then((response) => {
-            console.log(response)
-          })
-          .catch((error) =>{
-            console.log(error)
-          })
-        }
-      }}
-    />
+      onKeyUp={handleSearch}    />
   </div>
 )
 
+Search.propTypes = {	
+  handleSearch: PropTypes.func.isRequired
+}
 export default Search
