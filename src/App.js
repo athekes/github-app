@@ -12,13 +12,19 @@ class App extends Component {
     }
   }
   
+  getGitHubBaseUrl(username, type) {
+    const internalUsername = username ? `/${username}` : ''
+    const internalType = type ? `/${type}` : ''
+    return `https://api.github.com/users${internalUsername}${internalType}`
+  }
+
   handleSearch (e) {
     const value = e.target.value
     const keyCode = e.which || e.keyCode
     const ENTER = 13
     
     if (keyCode === ENTER) {
-      axios.get(`https://api.github.com/users/${value}`)
+      axios.get(this.getGitHubBaseUrl(value))
       .then((response) => {
         console.log(response)
         this.setState({
@@ -29,7 +35,9 @@ class App extends Component {
             repos: response.data.public_repos,
             followers: response.data.followers,
             following: response.data.following
-          }
+          },
+          repos: [],
+          starred: []
         })
       })
       .catch((error) =>{
@@ -37,11 +45,23 @@ class App extends Component {
       })
     }
   }
-  getRepos() {
-    console.log("get repos")
-  }
-  getStarred() {
-    console.log("get satarred")
+  getRepos(type) {
+    return (e) => {
+      var username = this.state.userinfo.login
+      axios.get(this.getGitHubBaseUrl(username, type))
+      .then((response) => {
+        console.log(response)
+        this.setState({
+          [type]: response.data.map((repo) => ({
+            name: repo.name,
+            link: repo.html_url
+          }))
+        })
+      })
+      .catch((error) =>{
+        console.log(error)
+      })
+    }
   }
 
   render () {
@@ -50,9 +70,8 @@ class App extends Component {
       repos = {this.state.repos}
       starred = {this.state.starred}
       handleSearch = {(e) => this.handleSearch(e)}
-      getRepos = {() => console.log("get repos")}
-      getStarred = {() => console.log("get satarred")}
-      />
+      getRepos = {this.getRepos('repos')}
+      getStarred = {this.getRepos('starred')}/>
   }
 }
   
