@@ -17,13 +17,14 @@ class App extends Component {
     const internalType = type ? `/${type}` : ''
     return `https://api.github.com/users${internalUsername}${internalType}`
   }
-
   handleSearch (e) {
     const value = e.target.value
     const keyCode = e.which || e.keyCode
     const ENTER = 13
-    
+    const target = e.target
+
     if (keyCode === ENTER) {
+      target.disabled = true
       axios.get(this.getGitHubBaseUrl(value))
       .then((response) => {
         console.log(response)
@@ -42,6 +43,9 @@ class App extends Component {
       })
       .catch((error) =>{
         console.log(error)
+      })
+      .then(() => {
+        target.disabled = false
       })
     }
   }
@@ -63,7 +67,6 @@ class App extends Component {
       })
     }
   }
-
   render () {
     return <AppContent
       userinfo={this.state.userinfo}
